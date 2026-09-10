@@ -1,0 +1,98 @@
+/* app/globals.css
+   Tailwind base + custom AURA design tokens and utilities
+   Mobile-first, dark luxury palette, subtle glassmorphism and glow.
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- Design tokens --- */
+:root{
+  --aura-900: #070607; /* near-black */
+  --aura-800: #0b0b0c;
+  --muted: #9b9b9b;
+  --accent-start: #d9a8ff; /* soft lavender-pink */
+  --accent-mid: #a758df;   /* lavender */
+  --accent-end: #ffd6b3;   /* warm rose-gold */
+  --glass: rgba(255,255,255,0.035);
+  --card-border: rgba(255,255,255,0.04);
+}
+
+/* body baseline */
+html,body { height:100%; }
+body {
+  @apply bg-[#070607] text-white;
+  background-image:
+    radial-gradient(600px 400px at 10% 10%, rgba(167,88,223,0.035), transparent 8%),
+    radial-gradient(500px 350px at 92% 82%, rgba(255,214,179,0.02), transparent 8%);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  letter-spacing: -0.01em;
+}
+
+/* Display font helper (serif editorial) */
+.font-display { font-family: Georgia, 'Times New Roman', serif; }
+
+/* Glass card */
+.card-glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  backdrop-filter: blur(8px) saturate(115%);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+}
+
+/* Soft aura glow */
+.shadow-aura {
+  box-shadow: 0 10px 40px rgba(167,88,223,0.08), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* CTA styles */
+.btn-primary {
+  background: linear-gradient(90deg,var(--accent-mid),var(--accent-start));
+  color: white;
+  border-radius: 10px;
+  padding: 0.6rem 1.1rem;
+  font-weight: 600;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(167,88,223,0.10);
+}
+.btn-secondary {
+  background: transparent;
+  color: rgba(255,255,255,0.92);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 0.56rem 1rem;
+}
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+/* Hero placeholder / editorial */
+.placeholder-hero {
+  background: linear-gradient(180deg, rgba(18,18,20,0.6), rgba(6,6,7,0.9));
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.03);
+  min-height: 14rem;
+}
+
+/* text helpers */
+.lead-muted { color: rgba(255,255,255,0.78); font-size:1rem; line-height:1.5; }
+.section-title { font-family: Georgia, serif; font-weight:700; color: #fff; }
+
+/* accessible focus ring */
+:focus {
+  outline: 3px solid rgba(167,88,223,0.14);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* layout helper */
+.container-max { max-width: 1200px; margin-left: auto; margin-right: auto; }
+
+/* small responsive tweaks */
+@media (min-width: 768px) {
+  .hero-giant { font-size: clamp(2.25rem, 6vw, 4.25rem); }
+}
