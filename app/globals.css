@@ -1,98 +1,120 @@
 /* app/globals.css
-   Tailwind base + custom AURA design tokens and utilities
-   Mobile-first, dark luxury palette, subtle glassmorphism and glow.
+   Enhanced AURA global styles: animations, hero visual, product cards, reveals
 */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* --- Design tokens --- */
 :root{
-  --aura-900: #070607; /* near-black */
-  --aura-800: #0b0b0c;
-  --muted: #9b9b9b;
-  --accent-start: #d9a8ff; /* soft lavender-pink */
-  --accent-mid: #a758df;   /* lavender */
-  --accent-end: #ffd6b3;   /* warm rose-gold */
-  --glass: rgba(255,255,255,0.035);
-  --card-border: rgba(255,255,255,0.04);
+  --aura-900: #030203; /* deeper midnight */
+  --ivory: #f6f1ec;
+  --champagne: #d9c6ad;
+  --plum: #8a4fa8;
+  --glass: rgba(255,255,255,0.03);
 }
 
-/* body baseline */
 html,body { height:100%; }
-body {
-  @apply bg-[#070607] text-white;
+body{
+  @apply bg-[#030203] text-white;
   background-image:
-    radial-gradient(600px 400px at 10% 10%, rgba(167,88,223,0.035), transparent 8%),
-    radial-gradient(500px 350px at 92% 82%, rgba(255,214,179,0.02), transparent 8%);
+    radial-gradient(800px 500px at 10% 8%, rgba(138,79,168,0.035), transparent 10%),
+    radial-gradient(600px 400px at 92% 82%, rgba(217,198,173,0.02), transparent 8%);
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
-  letter-spacing: -0.01em;
 }
 
-/* Display font helper (serif editorial) */
-.font-display { font-family: Georgia, 'Times New Roman', serif; }
+.font-display { font-family: Georgia, 'Times New Roman', serif; color: var(--ivory); }
 
-/* Glass card */
-.card-glass {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  backdrop-filter: blur(8px) saturate(115%);
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
+/* Hero visual layers */
+.hero-visual {
+  position: relative;
+  overflow: visible;
 }
-
-/* Soft aura glow */
-.shadow-aura {
-  box-shadow: 0 10px 40px rgba(167,88,223,0.08), inset 0 1px 0 rgba(255,255,255,0.02);
-}
-
-/* CTA styles */
-.btn-primary {
-  background: linear-gradient(90deg,var(--accent-mid),var(--accent-start));
-  color: white;
-  border-radius: 10px;
-  padding: 0.6rem 1.1rem;
-  font-weight: 600;
-}
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 40px rgba(167,88,223,0.10);
-}
-.btn-secondary {
-  background: transparent;
-  color: rgba(255,255,255,0.92);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 10px;
-  padding: 0.56rem 1rem;
-}
-.btn-secondary:hover {
-  background: rgba(255,255,255,0.02);
+.hero-visual::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  width: 680px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(138,79,168,0.14), transparent 30%), radial-gradient(circle at 70% 70%, rgba(217,198,173,0.06), transparent 40%);
+  filter: blur(36px) saturate(120%);
+  mix-blend-mode: screen;
+  z-index: 0;
+  animation: drift 12s linear infinite alternate;
 }
 
-/* Hero placeholder / editorial */
-.placeholder-hero {
-  background: linear-gradient(180deg, rgba(18,18,20,0.6), rgba(6,6,7,0.9));
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.03);
-  min-height: 14rem;
+.hero-visual::after{
+  content: '';
+  position: absolute;
+  left: 10%;
+  top: 60%;
+  transform: translate(-10%, -50%);
+  width: 220px;
+  height: 220px;
+  background: linear-gradient(135deg, rgba(167,88,223,0.06), rgba(217,198,173,0.03));
+  filter: blur(18px);
+  border-radius: 20% 50% 30% 50%;
+  z-index: 0;
+  animation: float 6s ease-in-out infinite;
 }
 
-/* text helpers */
-.lead-muted { color: rgba(255,255,255,0.78); font-size:1rem; line-height:1.5; }
-.section-title { font-family: Georgia, serif; font-weight:700; color: #fff; }
-
-/* accessible focus ring */
-:focus {
-  outline: 3px solid rgba(167,88,223,0.14);
-  outline-offset: 2px;
-  border-radius: 8px;
+@keyframes drift{
+  0%{ transform: translate(-50%,-50%) translateY(0px); }
+  100%{ transform: translate(-50%,-50%) translateY(18px); }
 }
 
-/* layout helper */
-.container-max { max-width: 1200px; margin-left: auto; margin-right: auto; }
-
-/* small responsive tweaks */
-@media (min-width: 768px) {
-  .hero-giant { font-size: clamp(2.25rem, 6vw, 4.25rem); }
+@keyframes float{
+  0%{ transform: translate(-10%,-50%) translateY(0px); }
+  50%{ transform: translate(-10%,-50%) translateY(-8px); }
+  100%{ transform: translate(-10%,-50%) translateY(0px); }
 }
+
+/* floating glow */
+.float-glow{
+  animation: float 6s ease-in-out infinite;
+}
+
+/* subtle gradient movement for backgrounds */
+.gradient-shift{ animation: gradientShift 10s ease-in-out infinite; }
+@keyframes gradientShift{ 0%{ filter: hue-rotate(0deg); } 50%{ filter: hue-rotate(6deg); } 100%{ filter: hue-rotate(0deg); } }
+
+/* product editorial card */
+.product-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 16px;
+  padding: 1rem;
+  transition: transform .28s ease, box-shadow .28s ease;
+}
+.product-card:hover{ transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 6px 30px rgba(167,88,223,0.06); }
+.product-media{ height: 200px; border-radius: 12px; background: linear-gradient(180deg,#0b0b0d,#050506); display:flex; align-items:center; justify-content:center; color:#999; }
+.product-meta{ margin-top: .75rem; }
+.product-title{ font-weight:700; color:var(--ivory); }
+.product-desc{ color: rgba(255,255,255,0.78); font-size:0.95rem; margin-top:0.35rem; }
+.product-price{ color: var(--champagne); font-weight:600; margin-top:0.6rem; }
+
+/* reveal effect */
+.reveal{ opacity:0; transform: translateY(8px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.show{ opacity:1; transform: translateY(0); }
+
+/* daily aura ritual */
+.daily-card{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; padding:1rem; border:1px solid rgba(255,255,255,0.04); }
+.daily-ritual{ color: rgba(255,255,255,0.9); font-weight:600; }
+.daily-sub{ color: rgba(255,255,255,0.78); margin-top:0.5rem; }
+
+/* cosmic mirror signature */
+.cosmic-card{ padding:1.25rem; border-radius:14px; background: linear-gradient(180deg, rgba(138,79,168,0.03), rgba(6,6,7,0.7)); border:1px solid rgba(255,255,255,0.03); }
+.cosmic-cta{ background: linear-gradient(90deg,var(--plum),var(--champagne)); color: #050406; padding:.6rem 1rem; border-radius:10px; font-weight:700; }
+
+/* rewards */
+.rewards-card{ padding:1rem; border-radius:12px; background: linear-gradient(180deg, rgba(217,198,173,0.03), rgba(6,6,7,0.7)); border:1px solid rgba(255,255,255,0.03); }
+
+/* footer subtle */
+.footer-legal{ color: rgba(255,255,255,0.6); font-size:0.9rem; }
+
+/* accessibility tweak for focus */
+:focus{ outline: 3px solid rgba(138,79,168,0.16); outline-offset: 2px; }
